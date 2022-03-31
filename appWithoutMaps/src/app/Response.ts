@@ -1,0 +1,71 @@
+export interface FuelStationInfo {
+    access_code: string;
+    access_days_time: string;
+    access_days_time_fr: string;
+    access_detail_code: string;
+    bd_blends: string;
+    bd_blends_fr: string;
+    cards_accepted: string;
+    city: string;
+    cng_dispenser_num: number;
+    cng_fill_type_code: string;
+    cng_psi: string;
+    cng_renewable_source: string;
+    cng_total_compression: number;
+    cng_total_storage: number;
+    cng_vehicle_class: string;
+    country: string;
+    date_last_confirmed: string;
+    e85_blender_pump: boolean;
+    e85_other_ethanol_blends: string[];
+    ev_connector_types: string[];
+    ev_dc_fast_num: number;
+    ev_level1_evse_num: number;
+    ev_level2_evse_num: number;
+    ev_network: string;
+    ev_network_web: string;
+    ev_other_evse: string;
+    ev_pricing: string;
+    ev_pricing_fr: string;
+    ev_renewable_source: string;
+    expected_date: string;
+    facility_type: string;
+    fuel_type_code: string;
+    geocode_status: string;
+    groups_with_access_code: string;
+    groups_with_access_code_fr: string;
+    hy_is_retail: string;
+    hy_pressures: string[];
+    hy_standards: string[];
+    hy_status_link: string;
+    id: number;
+    intersection_directions: string;
+    intersection_directions_fr: string;
+    latitude: number;
+    lng_renewable_source: string;
+    lng_vehicle_class: string;
+    longitude: number;
+    lpg_nozzle_types: string[];
+    lpg_primary: boolean;
+    ng_fill_type_code: string;
+    ng_psi: string;
+    ng_vehicle_class: string;
+    open_date: string;
+    owner_type_code: string;
+    plus4: string;
+    state: string;
+    station_name: string;
+    station_phone: string;
+    status_code: string;
+    street_address: string;
+    updated_at: string;
+    zip: string;
+
+}
+
+export interface Response {
+    total_results: number;
+    station_counts: any[];
+    station_locator_url: string;
+    fuel_stations: FuelStationInfo[];
+}       
