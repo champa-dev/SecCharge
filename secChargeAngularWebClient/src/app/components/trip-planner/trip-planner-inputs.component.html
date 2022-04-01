@@ -13,11 +13,15 @@
         <div class="spacer"></div>
         <div style="position:absolute; left:120px;"><button class="button-80" type="button"
                 (click)="displayRoute($event)">View trip</button></div>
+        <div class="spacer"></div>
+        <div class="spacer"></div>
+        <div style="position:absolute; left:70px; top:100"><button class="button-80" type="button"
+                (click)="refreshPage($event)">Back to view stations</button></div>
     </div>
 </div>
 
 
-<google-map [height]="1000" [width]=1500 [options]="mapOptions"></google-map>
+<div class="full" id="map">
+</div>
 <div id="output">
 </div>
-

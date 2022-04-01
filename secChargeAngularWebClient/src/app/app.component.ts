@@ -38,8 +38,4 @@ export class AppComponent implements OnInit {
     this.viewCSMapsComponentShow = false;
   }
 
-  refreshPage(event: Event) {
-    window.location.reload();
-  }
-
 }

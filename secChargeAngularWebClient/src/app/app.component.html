@@ -1,5 +1,6 @@
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
     <div *ngIf="!tripPlannerComponentShow" style="position:absolute; left:150px;"><button class="button-80"
             type="button" (click)="setFuncDropDown($event)">View all stations</button></div>
     <div *ngIf="dropDownComponentShow && !tripPlannerComponentShow">
@@ -9,14 +10,12 @@
     <div *ngIf="viewCSMapsComponentShow && !tripPlannerComponentShow">
         <app-display-maps></app-display-maps>
     </div>
-    <div style="position:absolute; left:165px;"><button class="button-80" type="button"
+    <div *ngIf="!tripPlannerComponentShow" style="position:absolute; left:165px;"><button class="button-80" type="button"
             (click)="setFuncTripPlanner($event)">Plan a Trip</button></div>
-    <div class="spacer"></div>
-    <div *ngIf="tripPlannerComponentShow" style="position:absolute; left:120px;"><button class="button-80" type="button"
-            (click)="refreshPage($event)">Back to view stations</button></div>
-    <div class="spacer"></div>
+    
+
     <div *ngIf="tripPlannerComponentShow">
-        <app-trip-planner-inputs></app-trip-planner-inputs>
+        <app-trip-planner-inputs style="position: absolute; top:0"></app-trip-planner-inputs>
     </div>
     <div *ngIf="tripPlannerMapsComponentShow"></div>
 </body>
