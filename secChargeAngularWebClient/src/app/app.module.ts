@@ -6,8 +6,8 @@ import { GoogleMapsModule } from '@angular/google-maps'
 
 import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import { DropDownComponent } from './components/drop-down/drop-down.component';
-import { DisplayMapsComponent } from './components/display-maps/display-maps.component';
+import { DropDownComponent } from './components/view-all-stations-filters/drop-down.component';
+import { DisplayMapsComponent } from './components/display-maps-for-view-stations/display-maps.component';
 import { TripPlannerInputsComponent } from './components/trip-planner/trip-planner-inputs.component';
 
 

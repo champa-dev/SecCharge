@@ -18,7 +18,7 @@ export class TripPlannerInputsComponent implements OnInit {
     zoom: 5
   }
 
- 
+
 
 
   constructor() { }
@@ -37,8 +37,6 @@ export class TripPlannerInputsComponent implements OnInit {
         center: { lat: 45, lng: -75 }, //ottawa
         zoom: 5
       })
-
-     
     })
   }
   displayRoute(event: Event) {
