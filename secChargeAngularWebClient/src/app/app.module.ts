@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import { DropDownComponent } from './components/drop-down/drop-down.component';
 import { DisplayMapsComponent } from './components/display-maps/display-maps.component';
+import { TripPlannerMapComponent } from './components/trip-planner-map/trip-planner-map.component';
+import { TripPlannerInputsComponent } from './components/trip-planner-inputs/trip-planner-inputs.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DropDownComponent,
-    DisplayMapsComponent
+    DisplayMapsComponent,
+    TripPlannerMapComponent,
+    TripPlannerInputsComponent
    
   ],
   imports: [

@@ -1,0 +1,23 @@
+<div class="parent">
+    <div>
+        <form>
+            <div class="ip-box">
+                <input class="ip" type="text" id="from" placeholder="Origin">
+            </div>
+
+            <div class="ip-box">
+                <input class="ip" type="text" id="to" placeholder="Destination">
+            </div>
+
+        </form>
+        <div class="spacer"></div>
+        <div style="position:absolute; left:120px;"><button class="button-80" type="button"
+                (click)="displayRoute($event)">View trip</button></div>
+    </div>
+</div>
+
+
+<google-map [height]="1000" [width]=1500 [options]="mapOptions"></google-map>
+<div id="output">
+</div>
+
