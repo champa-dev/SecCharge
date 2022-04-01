@@ -72,3 +72,11 @@
 .button-80:not(:disabled):active {
   transform: translateY(.125rem);
 }
+.spacer{
+  display:block;
+  height:100px;
+  width:100%;
+  margin: 0 auto;
+  content:"";
+  
+}

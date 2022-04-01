@@ -12,7 +12,10 @@ export class AppComponent implements OnInit {
   @ViewChild('displayedMap') child !: DisplayMapsComponent;
 
   response!: Response;
-  componentShow = false;
+  dropDownComponentShow = false;
+  tripPlannerComponentShow = false;
+  viewCSMapsComponentShow = true;
+  tripPlannerMapsComponentShow = false;
 
   constructor() {
 
@@ -24,9 +27,19 @@ export class AppComponent implements OnInit {
     console.log('SecCharge Web Client');
 
   }
-  setFunc(event : Event)
-  {
-    this.componentShow = true
+  setFuncDropDown(event: Event) {
+    this.dropDownComponentShow = true
+    this.tripPlannerComponentShow = false
+  }
+
+  setFuncTripPlanner(event: Event) {
+    this.tripPlannerComponentShow = true;
+    this.tripPlannerMapsComponentShow = true;
+    this.viewCSMapsComponentShow = false;
+  }
+
+  refreshPage(event: Event) {
+    window.location.reload();
   }
 
 }
