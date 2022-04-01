@@ -1,6 +1,6 @@
 import { FuelStationInfo, Response } from './Response';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DisplayMapsComponent } from './components/display-maps/display-maps.component';
+import { DisplayMapsComponent } from './components/display-maps-for-view-stations/display-maps.component';
 
 @Component({
   selector: 'app-root',
