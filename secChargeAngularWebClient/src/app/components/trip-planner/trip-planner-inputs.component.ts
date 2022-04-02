@@ -21,7 +21,7 @@ export class TripPlannerInputsComponent implements OnInit {
 
   response!: NearByRouteResponse;
   coordsForStationsNearByRoutesService: StationObjForTripPlanner[] = [];
-  
+
 
   directionsService = new google.maps.DirectionsService();
 
@@ -120,11 +120,18 @@ export class TripPlannerInputsComponent implements OnInit {
             statObj.color = this.setMarkerIcon(statObj);
             this.coordsForStationsNearByRoutesService.push(statObj);
             console.log(this.coordsForStationsNearByRoutesService);
+
+            //display marker for this station
+            const marker = new google.maps.Marker({
+              position: { lat: station.latitude, lng: station.longitude },
+              icon: { url: statObj.color },
+              map: this.map,
+            });
+
           }
           );
         }
         );
-
       }
       else {
         //delete route from map
@@ -206,10 +213,10 @@ export class TripPlannerInputsComponent implements OnInit {
   }
   setMarkerIcon(statObj: StationObjForTripPlanner): string {
 
-    if (statObj.stationL2Num != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon7.png' //red
-    else if (statObj.stationL1Num != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon54.png' //green
-    else if (statObj.stationDCNum != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon23.png' //yellow
-    else statObj.color = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+    if (statObj.stationL2Num != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    else if (statObj.stationL1Num != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    else if (statObj.stationDCNum != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+    else statObj.color = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 
     return statObj.color;
   }
