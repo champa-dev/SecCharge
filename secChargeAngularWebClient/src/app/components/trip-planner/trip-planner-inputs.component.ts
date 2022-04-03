@@ -20,7 +20,9 @@ export class TripPlannerInputsComponent implements OnInit {
   private map!: google.maps.Map;
 
   response!: NearByRouteResponse;
-  coordsForStationsNearByRoutesService: StationObjForTripPlanner[] = [];
+  mapMarkers: google.maps.Marker[] = [];
+
+
 
 
   directionsService = new google.maps.DirectionsService();
@@ -32,7 +34,7 @@ export class TripPlannerInputsComponent implements OnInit {
 
   ngOnInit(): void {
     let loader = new Loader({
-      apiKey: '--APIKEY--'
+      apiKey: 'AIzaSyCKOIlrdqH_DOrj_kKCVLYFG5gjoJDG0kc'
     })
 
     loader.load().then(() => {
@@ -63,6 +65,8 @@ export class TripPlannerInputsComponent implements OnInit {
     })
   }
   displayRoute(event: Event) {
+
+
     var request = {
       origin: (<HTMLInputElement>document.getElementById("from")!).value,
       destination: (<HTMLInputElement>document.getElementById("to")!).value,
@@ -98,8 +102,16 @@ export class TripPlannerInputsComponent implements OnInit {
         console.log(customUrlPart)
         //call service
         this.getInfoFromNearByRouteService.getStationInfoForRoutes(customUrlPart).subscribe((info) => {
+
           this.response = info;
+          let stationsNearByRoute: StationObjForTripPlanner[] = [];
+
+          for (let i = 0; i < this.mapMarkers.length; i++) {
+            this.mapMarkers[i].setMap(null);
+          }
+
           console.log(this.response.station_counts)
+
           this.response.fuel_stations.forEach((station: FuelStationInfo) => {
             console.log('Station Name:', station.station_name,
               '**Station network:', station.ev_network,
@@ -118,21 +130,25 @@ export class TripPlannerInputsComponent implements OnInit {
               stationL2Num: station.ev_level2_evse_num, stationEVNetwork: station.ev_network, stationConnectorTypes: station.ev_connector_types, color: ""
             }
             statObj.color = this.setMarkerIcon(statObj);
-            this.coordsForStationsNearByRoutesService.push(statObj);
-            console.log(this.coordsForStationsNearByRoutesService);
+            stationsNearByRoute.push(statObj);
+            console.log(statObj.stationLocCoord)
+          }
 
-            //display marker for this station
+          );
+
+          for (let i = 0; i < stationsNearByRoute.length; i++) {
             const marker = new google.maps.Marker({
-              position: { lat: station.latitude, lng: station.longitude },
-              icon: { url: statObj.color },
+              position: stationsNearByRoute[i].stationLocCoord,
+              icon: { url: stationsNearByRoute[i].color },
               map: this.map,
             });
-
+            this.mapMarkers.push(marker);
           }
-          );
         }
         );
+
       }
+
       else {
         //delete route from map
         this.directionsDisplay.setDirections({ routes: [] });
@@ -142,8 +158,7 @@ export class TripPlannerInputsComponent implements OnInit {
         //show error message
         output!.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
       }
-    }
-    );
+    })
 
   }
   refreshPage(event: Event) {
@@ -156,7 +171,7 @@ export class TripPlannerInputsComponent implements OnInit {
     }
     var poly = [];
     var index = 0, len = encoded.length;
-    var lat = 0, lng = 0;
+    let latt = 0, lngg = 0;
 
     while (index < len) {
       var b, shift = 0, result = 0;
@@ -168,7 +183,7 @@ export class TripPlannerInputsComponent implements OnInit {
       } while (b >= 0x20);
 
       var dlat = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
-      lat += dlat;
+      latt += dlat;
 
       shift = 0;
       result = 0;
@@ -180,11 +195,11 @@ export class TripPlannerInputsComponent implements OnInit {
       } while (b >= 0x20);
 
       var dlng = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
-      lng += dlng;
+      lngg += dlng;
 
       var p = {
-        latitude: lat / 1e5,
-        longitude: lng / 1e5,
+        latitude: latt / 1e5,
+        longitude: lngg / 1e5,
       };
       poly.push(p);
     }
@@ -195,7 +210,7 @@ export class TripPlannerInputsComponent implements OnInit {
     let customLineString: string = "&distance=2&route=LINESTRING(";
 
     for (let point of routeLine) {
-      console.log(point.latitude + " " + point.longitude);
+      //   console.log(point.latitude + " " + point.longitude);
       if (point.longitude > 0)
         customLineString = customLineString.concat("+")
       customLineString = customLineString.concat(point.longitude.toString())
@@ -220,4 +235,6 @@ export class TripPlannerInputsComponent implements OnInit {
 
     return statObj.color;
   }
+
+  
 }
