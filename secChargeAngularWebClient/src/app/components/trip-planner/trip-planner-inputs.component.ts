@@ -163,9 +163,6 @@ export class TripPlannerInputsComponent implements OnInit {
               "<h2>" +
               " <div>Pricing </div>" + stationsNearByRoute[i].stationPricing +
               " </h2>" +
-              " <h2>" +
-              "<div>Renewable Source </div>" + stationsNearByRoute[i].stationRenewableSource +
-              " </h2>" +
               " </div>";
 
             let tempMap = this.map
