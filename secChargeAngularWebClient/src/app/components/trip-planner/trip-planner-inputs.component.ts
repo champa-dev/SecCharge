@@ -1,4 +1,4 @@
-import { StationObjForTripPlanner } from './../../StationForTripPlanner';
+import { StationObjForTripPlanner } from 'src/app/StationForTripPlanner';
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, Input, ElementRef } from '@angular/core';
 import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
@@ -21,9 +21,6 @@ export class TripPlannerInputsComponent implements OnInit {
 
   response!: NearByRouteResponse;
   mapMarkers: google.maps.Marker[] = [];
-
-
-
 
   directionsService = new google.maps.DirectionsService();
 
@@ -81,9 +78,9 @@ export class TripPlannerInputsComponent implements OnInit {
       if (status == google.maps.DirectionsStatus.OK) {
 
         //Get distance and time        
-        output!.innerHTML = "<div class='alert-info'>From: " + (<HTMLInputElement>document.getElementById("from")!).value
-          + ".<br />To: " + (<HTMLInputElement>document.getElementById("to")!).value + ".<br /> Driving distance <i class='fas fa-road'></i> : "
-          + result!.routes[0].legs[0].distance!.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : "
+        output!.innerHTML = "<div class='alert-info'><b>From: </b>" + (<HTMLInputElement>document.getElementById("from")!).value
+          + ".<br /><b>To: </b>" + (<HTMLInputElement>document.getElementById("to")!).value + ".<br /> <b>Driving distance <i class='fas fa-road'></i> :</b> "
+          + result!.routes[0].legs[0].distance!.text + ".<br /><b>Duration <i class='fas fa-hourglass-start'></i> : </b>"
           + result!.routes[0].legs[0].duration!.text + ".</div>";
 
         //display route
@@ -136,6 +133,7 @@ export class TripPlannerInputsComponent implements OnInit {
 
           );
 
+          // set marker
           for (let i = 0; i < stationsNearByRoute.length; i++) {
             const marker = new google.maps.Marker({
               position: stationsNearByRoute[i].stationLocCoord,
@@ -143,6 +141,40 @@ export class TripPlannerInputsComponent implements OnInit {
               map: this.map,
             });
             this.mapMarkers.push(marker);
+
+
+            //set infowindow
+            let infowindow = new google.maps.InfoWindow()
+            let content =
+              "<div>" +
+              "<h1>" + stationsNearByRoute[i].stationName + "</h1>" +
+              "<br>" +
+              "<h2>" +
+              "<div>Availabilty </div>" + stationsNearByRoute[i].stationHrs +
+              "</h2>" +
+              "<h2>" +
+              "<div>Address </div>" + stationsNearByRoute[i].stationAddress.concat(", ")
+                .concat(stationsNearByRoute[i].stationCity).concat(", ").concat(stationsNearByRoute[i].stationZip) +
+              " </h2>" +
+              " <h2>" +
+              "<div>Phone </div>" + stationsNearByRoute[i].stationPhone +
+              " </h2>" +
+
+              "<h2>" +
+              " <div>Pricing </div>" + stationsNearByRoute[i].stationPricing +
+              " </h2>" +
+              " <h2>" +
+              "<div>Renewable Source </div>" + stationsNearByRoute[i].stationRenewableSource +
+              " </h2>" +
+              " </div>";
+
+            let tempMap = this.map
+            google.maps.event.addListener(marker, 'click', ((marker, content, infowindow) => {
+              return function () {
+                infowindow.setContent(content);
+                infowindow.open(tempMap, marker);
+              };
+            })(marker, content, infowindow));
           }
         }
         );
@@ -171,7 +203,7 @@ export class TripPlannerInputsComponent implements OnInit {
     }
     var poly = [];
     var index = 0, len = encoded.length;
-    let latt = 0, lngg = 0;
+    let lat = 0, lng = 0;
 
     while (index < len) {
       var b, shift = 0, result = 0;
@@ -183,7 +215,7 @@ export class TripPlannerInputsComponent implements OnInit {
       } while (b >= 0x20);
 
       var dlat = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
-      latt += dlat;
+      lat += dlat;
 
       shift = 0;
       result = 0;
@@ -195,11 +227,11 @@ export class TripPlannerInputsComponent implements OnInit {
       } while (b >= 0x20);
 
       var dlng = (result & 1) != 0 ? ~(result >> 1) : (result >> 1);
-      lngg += dlng;
+      lng += dlng;
 
       var p = {
-        latitude: latt / 1e5,
-        longitude: lngg / 1e5,
+        latitude: lat / 1e5,
+        longitude: lng / 1e5,
       };
       poly.push(p);
     }
@@ -236,5 +268,5 @@ export class TripPlannerInputsComponent implements OnInit {
     return statObj.color;
   }
 
-  
+
 }

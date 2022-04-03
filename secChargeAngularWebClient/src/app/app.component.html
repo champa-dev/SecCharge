@@ -10,8 +10,8 @@
     <div *ngIf="viewCSMapsComponentShow && !tripPlannerComponentShow">
         <app-display-maps></app-display-maps>
     </div>
-    <div *ngIf="!tripPlannerComponentShow" style="position:absolute; left:165px;"><button class="button-80" type="button"
-            (click)="setFuncTripPlanner($event)">Plan a Trip</button></div>
+    <div *ngIf="!tripPlannerComponentShow" style="position:absolute; left:100px;"><button class="button-80" type="button"
+            (click)="setFuncTripPlanner($event)">View stations along a route</button></div>
     
 
     <div *ngIf="tripPlannerComponentShow">
