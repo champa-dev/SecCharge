@@ -145,13 +145,22 @@ export class DropDownComponent implements OnInit {
     );
 
   }
-
-  setMarkerIcon(statObj: StationObj): string {
+//commenting car icons
+/*  setMarkerIcon(statObj: StationObj): string {
 
     if (statObj.stationL2Num != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon7.png' //red
     else if (statObj.stationL1Num != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon54.png' //green
     else if (statObj.stationDCNum != null) statObj.color = 'http://maps.google.com/mapfiles/kml/pal4/icon23.png' //yellow
     else statObj.color = 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+
+    return statObj.color;
+  }*/
+  setMarkerIcon(statObj: StationObj): string {
+
+    if (statObj.stationL2Num != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    else if (statObj.stationL1Num != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    else if (statObj.stationDCNum != null) statObj.color = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+    else statObj.color = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
 
     return statObj.color;
   }

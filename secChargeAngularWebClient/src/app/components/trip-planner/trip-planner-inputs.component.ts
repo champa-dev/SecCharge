@@ -166,8 +166,10 @@ export class TripPlannerInputsComponent implements OnInit {
               " </div>";
 
             let tempMap = this.map
+
             google.maps.event.addListener(marker, 'click', ((marker, content, infowindow) => {
               return function () {
+
                 infowindow.setContent(content);
                 infowindow.open(tempMap, marker);
               };
