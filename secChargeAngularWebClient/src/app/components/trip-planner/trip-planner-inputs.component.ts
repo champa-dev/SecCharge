@@ -5,8 +5,8 @@ import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps'
 import { Loader } from '@googlemaps/js-api-loader';
 import { Coordinate } from 'src/app/Coordinate';
-import { NearByRouteResponse } from 'src/app/NearbyRouteResponse';
 import { FuelStationInfo } from 'src/app/Response';
+import { NearByRouteResponse } from 'src/app/NearByRouteResponse';
 import { TripPlannerStationsNearRouteService } from 'src/app/services/trip-planner-stations-near-route.service';
 
 
