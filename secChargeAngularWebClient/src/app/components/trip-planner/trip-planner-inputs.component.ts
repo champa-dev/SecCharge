@@ -41,7 +41,7 @@ export class TripPlannerInputsComponent implements OnInit {
 
       this.map = new google.maps.Map(<HTMLInputElement>document.getElementById("map"), {
         center: { lat: 45, lng: -75 }, //ottawa
-        zoom: 5,
+        zoom: 8,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       })
 
@@ -94,6 +94,8 @@ export class TripPlannerInputsComponent implements OnInit {
 
         //fetch station info from api
         let customUrlPart = this.constructWKT(this.decodePolyline(result?.routes[0].overview_polyline!));
+
+        //console.log(result?.routes[0].legs[0].steps)
         //display stuff for debugging
         console.log("decoded latLong below")
         console.log(customUrlPart)
