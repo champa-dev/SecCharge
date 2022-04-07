@@ -23,7 +23,7 @@
   color: #212121;
   cursor: pointer;
   display: inline-block;
-  font-family: Circular,Helvetica,sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: -.01em;
@@ -71,4 +71,59 @@
 
 .button-80:not(:disabled):active {
   transform: translateY(.125rem);
+}
+.spacer{
+  display:block;
+  height:100px;
+  width:100%;
+  margin: 0 auto;
+  content:"";
+  
+}
+/*styling.css*/
+/*add font family, background image*/
+
+body {
+  color: #010c0f;
+  font-family: "Poppins", sans-serif;
+}
+
+.fa-map-marker-alt,
+.fa-dot-circle {
+  color: #00090c;
+}
+
+/*Jumbotron*/
+.jumbotron {
+  background-color: transparent;
+  margin: 0;
+  padding: 10px;
+}
+
+.jumbotron h1 {
+  letter-spacing: 2.5px;
+  font-size: 3.5em;
+}
+
+.jumbotron h1,
+.jumbotron p {
+  text-align: center;
+}
+
+/*map*/
+#googleMap {
+  width: 80%;
+  height: 400px;
+  margin: 10px auto;
+}
+
+/*output box*/
+#output {
+  text-align: center;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+#mode {
+  color: black;
 }

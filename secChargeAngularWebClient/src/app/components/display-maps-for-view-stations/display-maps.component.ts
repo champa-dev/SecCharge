@@ -76,7 +76,7 @@ export class DisplayMapsComponent implements OnInit {
 
   mapOptions: google.maps.MapOptions = {
     center: { lat: 45, lng: -75 }, //ottawa
-    zoom: 5
+    zoom: 8
   }
 
   infoWindowContent: StationObj = {
