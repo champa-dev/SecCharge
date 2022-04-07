@@ -6,7 +6,9 @@ import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps'
 import { Loader } from '@googlemaps/js-api-loader';
 import { Coordinate } from 'src/app/Coordinate';
 import { FuelStationInfo } from 'src/app/Response';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NearByRouteResponse } from 'src/app/NearByRouteResponse';
+import { SharedService } from 'src/app/services/shared-service.service';
 import { TripPlannerStationsNearRouteService } from 'src/app/services/trip-planner-stations-near-route.service';
 
 
@@ -27,9 +29,97 @@ export class TripPlannerInputsComponent implements OnInit {
   //create a DirectionsRenderer object which we will use to display the route
   directionsDisplay = new google.maps.DirectionsRenderer();
 
+  displayFiltersComponentVar: boolean = false;
+
+  // drop down vars
+  coordsFromLevelFilterForMaps: StationObjForTripPlanner[] = [];
+  curStateOfLevelFilter: string[] = [];
+
+  coordsFromConnectorFilterForMaps: StationObjForTripPlanner[] = [];
+  curStateOfConnectorFilter: string[] = [];
+
+  coordsFromNetworkFilterForMaps: StationObjForTripPlanner[] = [];
+  curStateOfNetworkFilter: string[] = [];
+
+  dropdownSettings!: IDropdownSettings;
+  levelDropdownList = [
+    { item_id: 1, item_text: 'Level 1' },
+    { item_id: 2, item_text: 'Level 2' },
+    { item_id: 3, item_text: 'DC Fast' },
+    { item_id: 4, item_text: 'Legacy Chargers' }
+  ];
+  levelSelectedItems = [
+
+  ];
+
+  connectorDropdownList = [
+    { item_id: 1, item_text: 'NEMA1450' },
+    { item_id: 2, item_text: 'NEMA515' },
+    { item_id: 3, item_text: 'NEMA520' },
+    { item_id: 4, item_text: 'J1772' },
+    { item_id: 5, item_text: 'J1772COMBO' },
+    { item_id: 6, item_text: 'CHADEMO' },
+    { item_id: 7, item_text: 'TESLA' }
+
+  ];
+  connectorSelectedItems = [
+
+  ];
+
+  networkDropdownList = [
+    { item_id: 2, item_text: 'AddÉnergie Technologies' },
+    { item_id: 3, item_text: 'AMPUP' },
+    { item_id: 4, item_text: 'BCHYDRO' },
+    { item_id: 5, item_text: 'Blink Network' },
+    { item_id: 6, item_text: 'CHARGELAB' },
+    { item_id: 7, item_text: 'ChargePoint Network' },
+    { item_id: 8, item_text: 'Circuit électrique' },
+    { item_id: 9, item_text: 'eCharge Network' },
+    { item_id: 10, item_text: 'Electrify Canada' },
+    { item_id: 11, item_text: 'EVCS' },
+    { item_id: 12, item_text: 'EV Connect' },
+    { item_id: 13, item_text: 'EVGATEWAY' },
+    { item_id: 14, item_text: 'eVgo Network' },
+    { item_id: 15, item_text: 'FLO' },
+    { item_id: 16, item_text: 'FPLEV' },
+    { item_id: 17, item_text: 'FCN' },
+    { item_id: 18, item_text: 'Greenlots' },
+    { item_id: 19, item_text: 'IVY' },
+    { item_id: 20, item_text: 'LIVINGSTON' },
+    { item_id: 22, item_text: 'Non-Networked' },
+    { item_id: 23, item_text: 'OpConnect' },
+    { item_id: 24, item_text: 'PETROCAN' },
+    { item_id: 25, item_text: 'POWERFLEX' },
+    { item_id: 26, item_text: 'RIVIAN_WAYPOINTS' },
+    { item_id: 27, item_text: 'SemaCharge Network' },
+    { item_id: 28, item_text: 'Sun Country Highway' },
+    { item_id: 29, item_text: 'Tesla Destination' },
+    { item_id: 30, item_text: 'SWTCH' },
+    { item_id: 31, item_text: 'Tesla' },
+    { item_id: 32, item_text: 'Volta' },
+    { item_id: 33, item_text: 'Webasto' },
+    { item_id: 34, item_text: 'ZEFNET' }
+
+
+  ];
+  networkSelectedItems = [
+
+  ];
+
   constructor(private getInfoFromNearByRouteService: TripPlannerStationsNearRouteService) { }
 
   ngOnInit(): void {
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 4,
+      allowSearchFilter: true
+    };
+
     let loader = new Loader({
       apiKey: 'AIzaSyCKOIlrdqH_DOrj_kKCVLYFG5gjoJDG0kc'
     })
@@ -61,8 +151,10 @@ export class TripPlannerInputsComponent implements OnInit {
 
     })
   }
-  displayRoute(event: Event) {
+  displayRoute(filterUrlPart: string) {
 
+    console.log("Filters URL below****")
+    console.log(filterUrlPart)
 
     var request = {
       origin: (<HTMLInputElement>document.getElementById("from")!).value,
@@ -78,7 +170,7 @@ export class TripPlannerInputsComponent implements OnInit {
       if (status == google.maps.DirectionsStatus.OK) {
 
         //Get distance and time        
-        output!.innerHTML = "<div class='alert-info'><b>From: </b>" + (<HTMLInputElement>document.getElementById("from")!).value
+        output!.innerHTML = "<div  font-size: 140px;><b>From: </b>" + (<HTMLInputElement>document.getElementById("from")!).value
           + ".<br /><b>To: </b>" + (<HTMLInputElement>document.getElementById("to")!).value + ".<br /> <b>Driving distance <i class='fas fa-road'></i> :</b> "
           + result!.routes[0].legs[0].distance!.text + ".<br /><b>Duration <i class='fas fa-hourglass-start'></i> : </b>"
           + result!.routes[0].legs[0].duration!.text + ".</div>";
@@ -93,7 +185,7 @@ export class TripPlannerInputsComponent implements OnInit {
         console.log(result?.routes[0].overview_polyline!)
 
         //fetch station info from api
-        let customUrlPart = this.constructWKT(this.decodePolyline(result?.routes[0].overview_polyline!));
+        let customUrlPart = this.constructWKT(this.decodePolyline(result?.routes[0].overview_polyline!)).concat(filterUrlPart);
 
         //console.log(result?.routes[0].legs[0].steps)
         //display stuff for debugging
@@ -112,11 +204,11 @@ export class TripPlannerInputsComponent implements OnInit {
           console.log(this.response.station_counts)
 
           this.response.fuel_stations.forEach((station: FuelStationInfo) => {
-            console.log('Station Name:', station.station_name,
-              '**Station network:', station.ev_network,
-              '**Station connector type:', station.ev_connector_types,
-              '**Latitude', station.latitude,
-              '**Longitude', station.longitude, '\n');
+            /*  console.log('Station Name:', station.station_name,
+                '**Station network:', station.ev_network,
+                '**Station connector type:', station.ev_connector_types,
+                '**Latitude', station.latitude,
+                '**Longitude', station.longitude, '\n');*/
 
             let coord: Coordinate = { lat: station.latitude, lng: station.longitude };
 
@@ -130,7 +222,7 @@ export class TripPlannerInputsComponent implements OnInit {
             }
             statObj.color = this.setMarkerIcon(statObj);
             stationsNearByRoute.push(statObj);
-            console.log(statObj.stationLocCoord)
+            //   console.log(statObj.stationLocCoord)
           }
 
           );
@@ -269,5 +361,273 @@ export class TripPlannerInputsComponent implements OnInit {
     return statObj.color;
   }
 
+  displayFiltersComponent(event: Event) {
+    this.displayFiltersComponentVar = true;
+  }
 
+  constructFilterUrl(lineStringPart: string): string {
+
+    let filterUrlVar = lineStringPart;
+
+    return filterUrlVar;
+
+
+  }
+
+  onNetworkSelect(item: any) {
+
+    this.curStateOfNetworkFilter.push(item.item_text);
+    let selectedNetworkUrl = '&ev_network='
+
+    for (let network of this.curStateOfNetworkFilter) {
+      selectedNetworkUrl = selectedNetworkUrl.concat(network).concat(",");
+
+    }
+
+    console.log("curStateOfNetworkFilter below****")
+    console.log(this.curStateOfNetworkFilter)
+    console.log("URL below****")
+    console.log(selectedNetworkUrl)
+
+    this.displayRoute(selectedNetworkUrl)
+
+  }
+
+  onNetworkSelectAll(items: any) {
+
+    let allNetworkurl = '&ev_network=all';
+    this.displayRoute(allNetworkurl)
+    console.log(items);
+  }
+
+  onNetworkDeSelect(item: any) {
+
+    /* console.log(item)
+ 
+     for (let network of this.curStateOfNetworkFilter) {
+       if (item.item_text.toString() == network.toString())
+         console.log("Found")
+ 
+     }*/
+
+    this.curStateOfNetworkFilter = this.curStateOfNetworkFilter.filter(e => e !== item.item_text)
+
+    if (!(this.curStateOfNetworkFilter.length == 0)) {
+      console.log('Hereeee')
+      this.curStateOfNetworkFilter.push(item.item_text);
+      let deSelectNetworkUrl = '&ev_network='
+
+      for (let i = 0; i < this.curStateOfNetworkFilter.length; i++) {
+        if (item.item_text.toString() == this.curStateOfNetworkFilter[i].toString()) {
+          this.curStateOfNetworkFilter.splice(i, 1); // 2nd parameter means remove one item only          
+        }
+
+      }
+
+      for (let network of this.curStateOfNetworkFilter) {
+        if (item.item_text.toString() != network.toString())
+          deSelectNetworkUrl = deSelectNetworkUrl.concat(network).concat(",");
+
+      }
+
+      console.log("curStateOfNetworkFilter below****")
+      console.log(this.curStateOfNetworkFilter)
+      console.log("URL below****")
+      console.log(deSelectNetworkUrl)
+
+      this.displayRoute(deSelectNetworkUrl)
+    }
+
+    else {
+      this.clearMapForNetworkFilter()
+    }
+
+  }
+
+  onNetworkDeSelectAll(items: any) {
+    this.clearMapForNetworkFilter()
+  }
+
+  clearMapForNetworkFilter() {
+    this.curStateOfNetworkFilter = [];
+    this.displayRoute('')
+
+  }
+
+  onConnectorSelect(item: any) {
+
+    this.curStateOfConnectorFilter.push(item.item_text);
+    let selectedConnectorUrl = '&ev_connector_type='
+
+    for (let connector of this.curStateOfConnectorFilter) {
+      selectedConnectorUrl = selectedConnectorUrl.concat(connector).concat(",");
+
+    }
+
+    this.displayRoute(selectedConnectorUrl)
+
+  }
+
+  onConnectorSelectAll(items: any) {
+
+    let allConnectorUrl = '&ev_connector_type=all';
+    this.displayRoute(allConnectorUrl)
+    console.log(items);
+
+  }
+
+  onConnectorDeSelect(item: any) {
+
+
+    this.curStateOfConnectorFilter = this.curStateOfConnectorFilter.filter(e => e !== item.item_text)
+
+
+    if (!(this.curStateOfConnectorFilter.length == 0)) {
+
+      this.curStateOfConnectorFilter.push(item.item_text);
+      let deSelectConnectorUrl = '&ev_connector_type='
+
+      for (let i = 0; i < this.curStateOfConnectorFilter.length; i++) {
+        if (item.item_text.toString() == this.curStateOfConnectorFilter[i].toString()) {
+          this.curStateOfConnectorFilter.splice(i, 1); // 2nd parameter means remove one item only          
+        }
+
+      }
+
+      for (let connector of this.curStateOfConnectorFilter) {
+        if (item.item_text.toString() != connector.toString())
+          deSelectConnectorUrl = deSelectConnectorUrl.concat(connector).concat(",");
+
+      }
+
+      this.displayRoute(deSelectConnectorUrl)
+
+    }
+    else {
+      this.clearMapForConnectorFilter()
+    }
+  }
+
+  clearMapForConnectorFilter() {
+    this.curStateOfConnectorFilter = [];
+    this.displayRoute('')
+  }
+
+  onConnectorDeSelectAll(items: any) {
+    this.clearMapForConnectorFilter()
+  }
+
+  onLevelSelect(item: any) {
+
+    this.curStateOfLevelFilter.push(item.item_text.toString());
+    console.log("curStateOfNetworkFilter below****")
+    console.log(this.curStateOfLevelFilter)
+
+    let selectLevelUrl = '&ev_charging_level=';
+
+    for (let itemLevel of this.curStateOfLevelFilter) {
+
+      switch (itemLevel) {
+
+        case 'Level 1':
+          selectLevelUrl = selectLevelUrl.concat('1').concat(',');
+          break;
+
+        case 'Level 2':
+          selectLevelUrl = selectLevelUrl.concat('2').concat(',');
+          break;
+
+        case 'DC Fast':
+          selectLevelUrl = selectLevelUrl.concat('dc_fast').concat(',');
+          break;
+
+        case 'Legacy Chargers':
+          selectLevelUrl = selectLevelUrl.concat('legacy').concat(',');
+          break;
+
+        default:
+          selectLevelUrl = '';
+      }
+
+    }
+    this.displayRoute(selectLevelUrl)
+  }
+
+  onLevelDeSelect(item: any) {
+    //  console.log('In deslect: ' + item.item_text)
+    //  console.log('Before switch exec: ' + this.curStateOfLevelFilter);
+ //   this.curStateOfLevelFilter = this.curStateOfLevelFilter.filter(e => e !== item.item_text)
+
+    console.log('In level deselect')
+
+    if (!(this.curStateOfLevelFilter.length == 0)) {
+    //  console.log('Hereeee')
+      
+      let deSelectLevelUrl = '&ev_charging_level=';
+
+      for (let i = 0; i < this.curStateOfLevelFilter.length; i++) {
+        if (item.item_text.toString() == this.curStateOfLevelFilter[i].toString()) {
+          console.log("match at"+i)
+          this.curStateOfLevelFilter.splice(i, 1); // 2nd parameter means remove one item only          
+        }
+      }
+  
+
+      console.log("curStateOfNetworkFilter below****")
+      console.log(this.curStateOfLevelFilter)
+
+      for (let level of this.curStateOfLevelFilter) {
+        if (item.item_text.toString() != level.toString()){
+          switch (level) {
+
+            case 'Level 1':
+              deSelectLevelUrl = deSelectLevelUrl.concat('1').concat(',');
+              break;
+    
+            case 'Level 2':
+              deSelectLevelUrl = deSelectLevelUrl.concat('2').concat(',');
+              break;
+    
+            case 'DC Fast':
+              deSelectLevelUrl = deSelectLevelUrl.concat('dc_fast').concat(',');
+              break;
+    
+            case 'Legacy Chargers':
+              deSelectLevelUrl = deSelectLevelUrl.concat('legacy').concat(',');
+              break;
+    
+          }
+        }
+
+      }
+
+   
+      console.log("URL below****")
+      console.log(deSelectLevelUrl)
+
+      this.displayRoute(deSelectLevelUrl)
+    }
+
+    else {
+      this.clearMapForLevelFilter()
+    }
+  }
+
+
+  onLevelDeSelectAll(items: any) {
+    this.clearMapForLevelFilter();
+  }
+
+  clearMapForLevelFilter() {
+    this.curStateOfLevelFilter = [];
+    this.displayRoute('')
+  }
+
+  onLevelSelectAll(items: any) {
+    let allLevelurl = '&ev_charging_level=all';
+    this.displayRoute(allLevelurl)
+    console.log(items);
+
+  }
 }
+

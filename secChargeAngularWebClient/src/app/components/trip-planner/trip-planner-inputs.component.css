@@ -3,7 +3,7 @@
     width: 550px;
     position: fixed;
     z-index: 1;
-    top: 150px;
+    top: 20px;
     left: 0;
     font-family: "Poppins", sans-serif;
     overflow-x: hidden;
@@ -100,13 +100,15 @@
 }
 
 .full {   
-    height: 1000px; 
+    height: 1100px; 
     position: fixed;
     width: 1500px;
     left:550px;
     top: 0
 }
 .outputdetails{
-    background-color: rgb(245, 243, 243);
+    background-color: rgb(220, 225, 228);
+    font-family: 'Times New Roman', Times, serif ;
+font-size:larger;
 
 }

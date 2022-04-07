@@ -76,7 +76,7 @@ export class DisplayMapsComponent implements OnInit {
 
   mapOptions: google.maps.MapOptions = {
     center: { lat: 45, lng: -75 }, //ottawa
-    zoom: 8
+    zoom: 6
   }
 
   infoWindowContent: StationObj = {
@@ -204,12 +204,13 @@ export class DisplayMapsComponent implements OnInit {
     this.getNearestLocationInfoService.getStationInfoFromSearchedLoc(this.locSearched).subscribe((info) => {
       this.response = info;
 
+      this.coordsFromNearestStationService = [];
       this.response.fuel_stations.forEach((station: FuelStationInfo) => {
-        console.log('Station Name:', station.station_name,
+       /* console.log('Station Name:', station.station_name,
           '**Station network:', station.ev_network,
           '**Station connector type:', station.ev_connector_types,
           '**Latitude', station.latitude,
-          '**Longitude', station.longitude, '\n');
+          '**Longitude', station.longitude, '\n');*/
 
         let coord: Coordinate = { lat: station.latitude, lng: station.longitude };
 
@@ -225,32 +226,36 @@ export class DisplayMapsComponent implements OnInit {
         this.coordsFromNearestStationService.push(statObj);
       }
       );
-      console.log(this.coordsFromNearestStationService);
+      // console.log(this.coordsFromNearestStationService);
       this.stationsToBeMarked = this.coordsFromNearestStationService;
       let x = this.coordsFromNearestStationService;
-      console.log(this.stationsToBeMarked)
-      console.log(x)
+      //  console.log(this.stationsToBeMarked)
+      //  console.log(x)
     });
 
   }
 
   onConnectorSelect(item: any) {
-
-    let selectedConnectorUrl = '&ev_connector_type='.concat(item.item_text);
-    selectedConnectorUrl = this.locSearched.concat(selectedConnectorUrl);
-    console.log(selectedConnectorUrl)
+  
     this.curStateOfConnectorFilterFromSearchLoc.push(item.item_text);
+    let selectedConnectorUrl = this.locSearched.concat('&ev_connector_type=');
+    console.log(selectedConnectorUrl)
+
+    for (let connector of this.curStateOfConnectorFilterFromSearchLoc) {
+      selectedConnectorUrl = selectedConnectorUrl.concat(connector).concat(",");
+
+    }
 
     this.getNearestLocationInfoService.getStationInfoFromSearchedLoc(selectedConnectorUrl).subscribe((info) => {
       this.response = info;
 
       this.response.fuel_stations.forEach((station: FuelStationInfo) => {
 
-        console.log('Station Name:', station.station_name,
+        /*console.log('Station Name:', station.station_name,
           '**Station network:', station.ev_network,
           '**Station connector type:', station.ev_connector_types,
           '**Latitude', station.latitude,
-          '**Longitude', station.longitude, '\n');
+          '**Longitude', station.longitude, '\n');*/
 
         let coord: Coordinate = { lat: station.latitude, lng: station.longitude };
 
@@ -282,11 +287,11 @@ export class DisplayMapsComponent implements OnInit {
 
       this.response.fuel_stations.forEach((station: FuelStationInfo) => {
 
-        console.log('Station Name:', station.station_name,
+       /* console.log('Station Name:', station.station_name,
           '**Station network:', station.ev_network,
           '**Station connector type:', station.ev_connector_types,
           '**Latitude', station.latitude,
-          '**Longitude', station.longitude, '\n');
+          '**Longitude', station.longitude, '\n');*/
 
         let coord: Coordinate = { lat: station.latitude, lng: station.longitude };
 
@@ -407,11 +412,11 @@ export class DisplayMapsComponent implements OnInit {
 
       this.response.fuel_stations.forEach((station: FuelStationInfo) => {
 
-        console.log('Station Name:', station.station_name,
+       /* console.log('Station Name:', station.station_name,
           '**Station network:', station.ev_network,
           '**Station connector type:', station.ev_connector_types,
           '**Latitude', station.latitude,
-          '**Longitude', station.longitude, '\n');
+          '**Longitude', station.longitude, '\n');*/
 
         let coord: Coordinate = { lat: station.latitude, lng: station.longitude };
 

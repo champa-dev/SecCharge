@@ -11,17 +11,44 @@
 
         </form>
         <div class="spacer"></div>
-        <div style="position:absolute; left:120px;"><button class="button-80" type="button"
-                (click)="displayRoute($event)">View stations</button></div>
-        <div class="spacer"></div>
+        <div style="position:absolute; left:55px;"><button class="button-80" type="button"
+                (click)="displayRoute('')">View stations along the route</button></div>
         <div class="spacer"></div>
         <div style="position:absolute; left:75px; top:100"><button class="button-80" type="button"
                 (click)="refreshPage($event)">Back to view all stations</button></div>
         <div class="spacer"></div>
+        <div style="position:absolute; left:125px; top:100"><button class="button-80" type="button"
+                (click)="displayFiltersComponent($event)">Apply filters</button></div>
         <div class="spacer"></div>
+        <div class="spacer"></div>
+        <div *ngIf="displayFiltersComponentVar" class="filtersParent">
+            <div class="firstChild">
+               <ng-multiselect-dropdown [placeholder]="'Apply Level filters for all stations'"
+                    [settings]="dropdownSettings" [data]="levelDropdownList" [(ngModel)]="levelSelectedItems"
+                    (onSelect)="onLevelSelect($event)" (onSelectAll)="onLevelSelectAll($event)"
+                    (onDeSelect)="onLevelDeSelect($event)" (onDeSelectAll)="onLevelDeSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="spacer"></div>
+            <div class="secondChild">
+                <ng-multiselect-dropdown [placeholder]="'Apply Connector Type filters for all stations'"
+                    [settings]="dropdownSettings" [data]="connectorDropdownList" [(ngModel)]="connectorSelectedItems"
+                    (onSelect)="onConnectorSelect($event)" (onSelectAll)="onConnectorSelectAll($event)"
+                    (onDeSelect)="onConnectorDeSelect($event)" (onDeSelectAll)="onConnectorDeSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="spacer"></div>
+            <div class="thirdChild">
+                <ng-multiselect-dropdown [placeholder]="'Apply Network filters for all stations'"
+                    [settings]="dropdownSettings" [data]="networkDropdownList" [(ngModel)]="networkSelectedItems"
+                    (onSelect)="onNetworkSelect($event)" (onSelectAll)="onNetworkSelectAll($event)"
+                    (onDeSelect)="onNetworkDeSelect($event)" (onDeSelectAll)="onNetworkDeSelectAll($event)">
+                </ng-multiselect-dropdown>
+            </div>
+            <div class="spacer"></div>
+        </div>
         <div class="outputdetails" id="output">
         </div>
     </div>
 </div>
 <div class="full" id="map">
-</div>
