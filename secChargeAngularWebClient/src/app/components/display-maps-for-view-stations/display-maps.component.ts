@@ -29,10 +29,12 @@ export class DisplayMapsComponent implements OnInit {
   
   connectorSelectEventSubscription!: Subscription;
   networkSelectEventSubscription!: Subscription;
+  levelSelectEventSubscription!: Subscription;
 
   
   connectorFilterStations: StationObj[] = [];
   networkFilterStations: StationObj[] = [];
+  levelFileterStations: StationObj[] = [];
 
   coordsFromConnectorFilterFormSearchLoc: StationObj[] = [];
   curStateOfConnectorFilterFromSearchLoc: string[] = [];
@@ -130,6 +132,12 @@ export class DisplayMapsComponent implements OnInit {
 
   constructor(private sharedService: SharedService, private getNearestLocationInfoService: GetLocationBasedStationInfoService) {
 
+    this.levelSelectEventSubscription = this.sharedService.getLevelSelectEvent().subscribe((value: StationObj[]) => {
+      this.levelDataRefresh(value);
+    });
+    console.log('LevelFilter:')
+    console.log(this.levelFileterStations);
+
     this.connectorSelectEventSubscription = this.sharedService.getConnectorSelectEvent().subscribe((value: StationObj[]) => {
       this.connectorDataRefresh(value);
     });
@@ -164,6 +172,11 @@ export class DisplayMapsComponent implements OnInit {
   networkDataRefresh(value: StationObj[]) {
     this.networkFilterStations = value;
     this.stationsToBeMarked = this.networkFilterStations;
+  }
+
+  levelDataRefresh(value: StationObj[]) {
+    this.levelFileterStations = value;
+    this.stationsToBeMarked = this.levelFileterStations;
   }
 
 
