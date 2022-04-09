@@ -23,7 +23,7 @@
         <div class="spacer"></div>
         <div *ngIf="displayFiltersComponentVar" class="filtersParent">
             <div class="firstChild">
-               <ng-multiselect-dropdown [placeholder]="'Apply Level filters for all stations'"
+               <ng-multiselect-dropdown [placeholder]="'Apply Level filters'"
                     [settings]="dropdownSettings" [data]="levelDropdownList" [(ngModel)]="levelSelectedItems"
                     (onSelect)="onLevelSelect($event)" (onSelectAll)="onLevelSelectAll($event)"
                     (onDeSelect)="onLevelDeSelect($event)" (onDeSelectAll)="onLevelDeSelectAll($event)">
@@ -31,7 +31,7 @@
             </div>
             <div class="spacer"></div>
             <div class="secondChild">
-                <ng-multiselect-dropdown [placeholder]="'Apply Connector Type filters for all stations'"
+                <ng-multiselect-dropdown [placeholder]="'Apply Connector Type filters'"
                     [settings]="dropdownSettings" [data]="connectorDropdownList" [(ngModel)]="connectorSelectedItems"
                     (onSelect)="onConnectorSelect($event)" (onSelectAll)="onConnectorSelectAll($event)"
                     (onDeSelect)="onConnectorDeSelect($event)" (onDeSelectAll)="onConnectorDeSelectAll($event)">
@@ -39,7 +39,7 @@
             </div>
             <div class="spacer"></div>
             <div class="thirdChild">
-                <ng-multiselect-dropdown [placeholder]="'Apply Network filters for all stations'"
+                <ng-multiselect-dropdown [placeholder]="'Apply Network filters'"
                     [settings]="dropdownSettings" [data]="networkDropdownList" [(ngModel)]="networkSelectedItems"
                     (onSelect)="onNetworkSelect($event)" (onSelectAll)="onNetworkSelectAll($event)"
                     (onDeSelect)="onNetworkDeSelect($event)" (onDeSelectAll)="onNetworkDeSelectAll($event)">
