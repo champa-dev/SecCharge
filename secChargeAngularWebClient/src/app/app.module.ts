@@ -9,6 +9,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { DropDownComponent } from './components/view-all-stations-filters/drop-down.component';
 import { DisplayMapsComponent } from './components/display-maps-for-view-stations/display-maps.component';
 import { TripPlannerInputsComponent } from './components/trip-planner/trip-planner-inputs.component';
+import { NrelModulesComponent } from './components/nrel-modules/nrel-modules.component';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -16,14 +18,16 @@ import { TripPlannerInputsComponent } from './components/trip-planner/trip-plann
     AppComponent,
     DropDownComponent,
     DisplayMapsComponent,
-    TripPlannerInputsComponent   
+    TripPlannerInputsComponent,
+    NrelModulesComponent   
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgMultiSelectDropDownModule.forRoot(),
     FormsModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
