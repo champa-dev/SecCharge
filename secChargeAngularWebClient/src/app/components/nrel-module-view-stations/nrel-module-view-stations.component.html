@@ -1,0 +1,13 @@
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <div style="position:absolute; left:150px;"><button class="button-80" type="button"
+            (click)="setFuncDropDown($event)">View all stations</button></div>
+    <div *ngIf="dropDownComponentShow">
+        <app-drop-down></app-drop-down>
+    </div>
+    <div class="spacer"></div>
+    <div *ngIf="viewCSMapsComponentShow">
+        <app-display-maps></app-display-maps>
+    </div>
+</body>

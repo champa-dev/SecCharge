@@ -1,6 +1,6 @@
-import { Response } from './../../Response';
+import { Response } from '../../Response';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DisplayMapsComponent } from './../../components/display-maps-for-view-stations/display-maps.component';
+import { DisplayMapsComponent } from '../display-maps-for-view-stations/display-maps.component';
 
 
 @Component({

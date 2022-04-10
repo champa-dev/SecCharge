@@ -1,10 +1,12 @@
+import { NrelModuleViewStationsComponent } from './components/nrel-module-view-stations/nrel-module-view-stations.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NrelModulesComponent } from './components/nrel-modules/nrel-modules.component';
+import { NrelModulesComponent } from './components/nrel-modules-trip-planner/nrel-modules.component';
 
 
 const routes: Routes = [
-  { path: 'viewStations', component: NrelModulesComponent }
+  { path: 'viewStations', component: NrelModuleViewStationsComponent },
+  {path: 'tripPlanner', component: NrelModulesComponent}
 ]
 
 @NgModule({
