@@ -10,6 +10,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NearByRouteResponse } from 'src/app/NearByRouteResponse';
 import { SharedService } from 'src/app/services/shared-service.service';
 import { TripPlannerStationsNearRouteService } from 'src/app/services/trip-planner-stations-near-route.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -236,6 +237,7 @@ export class TripPlannerInputsComponent implements OnInit {
             });
             this.mapMarkers.push(marker);
 
+            
 
             //set infowindow
             let infowindow = new google.maps.InfoWindow()
@@ -269,6 +271,7 @@ export class TripPlannerInputsComponent implements OnInit {
               };
             })(marker, content, infowindow));
           }
+          console.log("markers  length"+this.mapMarkers.length)
         }
         );
 

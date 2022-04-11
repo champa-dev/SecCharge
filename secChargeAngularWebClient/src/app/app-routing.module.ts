@@ -1,18 +1,19 @@
-import { NrelModuleViewStationsComponent } from './components/nrel-module-view-stations/nrel-module-view-stations.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NrelModulesComponent } from './components/nrel-modules-trip-planner/nrel-modules.component';
-
+import { DisplayMapsComponent } from './components/display-maps-for-view-stations/display-maps.component';
+import { TripPlannerInputsComponent } from './components/trip-planner/trip-planner-inputs.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const routes: Routes = [
-  { path: 'viewStations', component: NrelModuleViewStationsComponent },
-  {path: 'tripPlanner', component: NrelModulesComponent}
+  { path: 'viewStations', component: DisplayMapsComponent },
+  {path: 'tripPlanner', component: TripPlannerInputsComponent}
 ]
 
 @NgModule({
   declarations: [],
   imports: [
-    [RouterModule.forRoot(routes)]],
+    [RouterModule.forRoot(routes)],
+    ],
   exports: [RouterModule]
 
 

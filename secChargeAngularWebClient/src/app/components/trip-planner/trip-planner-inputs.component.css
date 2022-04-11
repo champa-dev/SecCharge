@@ -17,6 +17,7 @@
     display: block;
     margin: 0 auto;
     font-family: "Poppins", sans-serif;
+    border:2px solid black;
 }
 
 .ip-box {
@@ -28,6 +29,7 @@
     border: 1px solid rgb(218, 222, 226);
     border-radius: 4px;
     box-sizing: border-box;
+    
 }
 
 .spacer {
@@ -112,3 +114,9 @@
 font-size:larger;
 
 }
+.firstChild, .secondChild, .thirdChild{
+    width:550px;
+    display:block;
+    margin:0 auto;
+    border:2px solid black;
+  }
