@@ -1,3 +1,5 @@
-<div style="position:absolute; left:150px;"><button class="button-80" type="button" (click)="setFunc($event)">View all stations</button></div>
-<div *ngIf="componentShow"><app-drop-down></app-drop-down></div>
-<app-display-maps></app-display-maps>
+<router-outlet>
+    <a href="/viewStations">View Sations</a>
+    <br>
+    <a href="/tripPlanner">Trip Planner</a>
+</router-outlet>
