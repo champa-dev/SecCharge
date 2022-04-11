@@ -9,6 +9,7 @@ import { NearestStationResponse } from 'src/app/NearestStationResponse';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GetInfoFromDropDownService } from '../../services/get-info-from-drop-down.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
