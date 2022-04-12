@@ -8,7 +8,7 @@ import { NearByRouteResponse } from '../NearByRouteResponse';
 })
 export class TripPlannerStationsNearRouteService {
 
-  private staticApiUrl = 'https://developer.nrel.gov/api/alt-fuel-stations/v1/nearby-route.json?api_key=xyHBoB7uGoJZVghcZ3y13Zkaoi3mMMMeehPcPUC4&country=CA&limit=all';
+  private staticApiUrl = 'https://developer.nrel.gov/api/alt-fuel-stations/v1/nearby-route.json?api_key=xyHBoB7uGoJZVghcZ3y13Zkaoi3mMMMeehPcPUC4&country=CA&limit=all&fuel_type=ELEC';
 
 
   constructor(private http: HttpClient) { }

@@ -1,6 +1,5 @@
 import { StationObj } from 'src/app/Station';
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
-import { SharedService } from 'src/app/services/shared-service.service';
 import { Subscription } from 'rxjs'
 import { Coordinate } from 'src/app/Coordinate';
 import { GetLocationBasedStationInfoService } from 'src/app/services/get-location-based-station-info.service';
@@ -128,21 +127,7 @@ export class DisplayMapsComponent implements OnInit {
   stationsToBeMarked: StationObj[] = [];
   locSearched!: string
 
-  constructor(private getInfoFromDropDownService: GetInfoFromDropDownService, private sharedService: SharedService, private getNearestLocationInfoService: GetLocationBasedStationInfoService) {
-
-
-    this.connectorSelectEventSubscription = this.sharedService.getConnectorSelectEvent().subscribe((value: StationObj[]) => {
-      this.connectorDataRefresh(value);
-    });
-    console.log('ConnectorFilter:')
-    console.log(this.connectorFilterStations);
-
-    this.networkSelectEventSubscription = this.sharedService.getNetworkSelectEvent().subscribe((value: StationObj[]) => {
-      this.networkDataRefresh(value);
-    });
-    console.log('NetworkFilter:')
-    console.log(this.networkFilterStations);
-  }
+  constructor(private getInfoFromDropDownService: GetInfoFromDropDownService, private getNearestLocationInfoService: GetLocationBasedStationInfoService) { }
   
   ngOnInit(): void {
 
@@ -231,24 +216,6 @@ export class DisplayMapsComponent implements OnInit {
   networkDataRefresh(value: StationObj[]) {
     this.networkFilterStations = value;
     this.stationsToBeMarked = this.networkFilterStations;
-  }
-
-  levelDataRefresh(value: StationObj[]) {
-    //this.levelFileterStations = value;
-    /* this.stationsToBeMarked = value;
-     console.log('filled Data%%%%%%%%%%%%%%%%%%%%')
-     this.setMarkers()*/
-
-    this.sharedService.getLevelSelectEvent().subscribe((value: StationObj[]) => {
-      //this.levelDataRefresh(value);
-
-      this.stationsToBeMarked = value;
-      console.log('filled Data%%%%%%%%%%%%%%%%%%%%')
-      this.setMarkers()
-
-
-    });
-
   }
 
   ngOnDestroy() {

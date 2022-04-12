@@ -8,7 +8,6 @@ import { Coordinate } from 'src/app/Coordinate';
 import { FuelStationInfo } from 'src/app/Response';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { NearByRouteResponse } from 'src/app/NearByRouteResponse';
-import { SharedService } from 'src/app/services/shared-service.service';
 import { TripPlannerStationsNearRouteService } from 'src/app/services/trip-planner-stations-near-route.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
